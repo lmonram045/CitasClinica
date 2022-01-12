@@ -11,11 +11,23 @@ public class Paciente {
     private String dni;
     private String telefono;
 
+    /** Constructor por parámetros */
     public Paciente(String nombre, String dni, String telefono) {
         // Llamo a los métodos set, que ya hacen las comprobaciones necesarias
         setNombre(nombre);
         setDni(dni);
         setTelefono(telefono);
+    }
+
+    /** Constructor copia */
+    public Paciente(Paciente paciente) {
+        // Primero comprobamos que no se recibe un paciente nulo
+        if (paciente == null)
+            throw new NullPointerException("ERROR: No es posible copiar un paciente nulo.");
+
+        setNombre(paciente.nombre);
+        setDni(paciente.dni);
+        setTelefono(paciente.telefono);
     }
 
     public String getNombre() {
