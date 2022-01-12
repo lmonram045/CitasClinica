@@ -269,6 +269,7 @@ public class Paciente {
         return Objects.hash(nombre, dni, telefono);
     }
 
+    /** Método getIniciales */
     private String getIniciales() {
         // Creo variable para guardar iniciales
         String iniciales = "";
@@ -281,5 +282,11 @@ public class Paciente {
             iniciales += partes.substring(0, 1);
         }
         return iniciales;
+    }
+
+    @Override
+    public String toString() {
+        return String.format("nombre=%s (%s), dni=%s, telefono=%s", formateaNombre(nombre), getIniciales(), dni,
+                telefono);
     }
 }
