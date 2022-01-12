@@ -1,6 +1,7 @@
 package org.iesalandalus.programacion.citasclinica;
 
 import java.util.Locale;
+import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -253,5 +254,18 @@ public class Paciente {
             throw new IllegalArgumentException("ERROR: El teléfono no tiene un formato válido.");
 
         this.telefono = telefono;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Paciente paciente = (Paciente) o;
+        return Objects.equals(nombre, paciente.nombre) && Objects.equals(dni, paciente.dni) && Objects.equals(telefono, paciente.telefono);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(nombre, dni, telefono);
     }
 }
