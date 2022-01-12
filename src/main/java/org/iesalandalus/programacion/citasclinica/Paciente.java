@@ -268,4 +268,18 @@ public class Paciente {
     public int hashCode() {
         return Objects.hash(nombre, dni, telefono);
     }
+
+    private String getIniciales() {
+        // Creo variable para guardar iniciales
+        String iniciales = "";
+        // pongo el nombre en formato correcto
+        String nombreFormateado = formateaNombre(nombre);
+        // Creo un array para dividir el nombre
+        String[] partesNombre = nombreFormateado.split(" ");
+        // Recorro el array para que vaya guardando las iniciales del nombre.
+        for (String partes : partesNombre) {
+            iniciales += partes.substring(0, 1);
+        }
+        return iniciales;
+    }
 }
