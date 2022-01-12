@@ -11,6 +11,19 @@ public class Paciente {
     private String dni;
     private String telefono;
 
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        // Primero comprobamos si es nulo o vacío
+        if (nombre == null || nombre.equals(""))
+            throw new NullPointerException("ERROR: El nombre de un paciente no puede ser nulo o vacío.");
+
+        // Formateamos el nombre y lo asignamos.
+        this.nombre = formateaNombre(nombre);
+    }
+
     /** Método para formatear los nombres, eliminando caracteres en blanco, y poniendo las primeras letras en mayúscula */
     private String formateaNombre(String nombre) {
         // Primero quitamos espacios al principio y al final
@@ -38,8 +51,11 @@ public class Paciente {
         return nombre.trim();
     }
 
-    /** Método para comprobar la letra del dni */
-    private boolean comprobarLetraDni(String dni) {
+    public String getDni() {
+        return dni;
+    }
+
+    private void setDni(String dni) {
         // Primero comprobamos si es nulo
         if (dni == null)
             throw new NullPointerException("ERROR: El DNI de un paciente no puede ser nulo o vacío.");
@@ -55,6 +71,14 @@ public class Paciente {
         if (dni.length() != 9 || !mat.matches())
             throw new IllegalArgumentException("ERROR: El DNI no tiene un formato válido.");
 
+        // Comprobamos que la letra del dni es correcta llamando al método correspondiente
+        comprobarLetraDni(dni); // Si no es true, debería saltar una excepción en el método.
+
+        this.dni = dni;
+    }
+
+    /** Método para comprobar la letra del dni */
+    private boolean comprobarLetraDni(String dni) {
         // Asigno el dni a un dni auxiliar para sacarle el número
         String dniAux = dni;
         dniAux = dniAux.replaceAll("[^0-9]", "");
@@ -189,5 +213,26 @@ public class Paciente {
         // Si no salta ninguna excepción quiere decir que la letra está bien, asi que devuelvo "true"
         return true;
 
+    }
+
+    public String getTelefono() {
+        return telefono;
+    }
+
+    public void setTelefono(String telefono) {
+        // Comprobamos si es nulo o vacio
+        if (telefono == null || telefono.equals(""))
+            throw new NullPointerException("ERROR: El teléfono de un paciente no puede ser nulo o vacío.");
+
+        // Eliminiamos los posibles espacios en blanco del principio y del final
+        telefono = telefono.trim();
+
+        Pattern pat = Pattern.compile(ER_TELEFONO);
+        Matcher mat = pat.matcher(telefono);
+
+        if (!mat.matches())
+            throw new IllegalArgumentException("ERROR: El teléfono no tiene un formato válido.");
+
+        this.telefono = telefono;
     }
 }
