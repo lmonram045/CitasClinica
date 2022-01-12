@@ -11,6 +11,13 @@ public class Paciente {
     private String dni;
     private String telefono;
 
+    public Paciente(String nombre, String dni, String telefono) {
+        // Llamo a los métodos set, que ya hacen las comprobaciones necesarias
+        setNombre(nombre);
+        setDni(dni);
+        setTelefono(telefono);
+    }
+
     public String getNombre() {
         return nombre;
     }
