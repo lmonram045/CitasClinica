@@ -289,4 +289,5 @@ public class Paciente {
         return String.format("nombre=%s (%s), dni=%s, telefono=%s", formateaNombre(nombre), getIniciales(), dni,
                 telefono);
     }
+
 }
