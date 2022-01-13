@@ -10,9 +10,16 @@ public class Cita {
     private LocalDateTime fechaHora;
     private Paciente paciente;
 
+    /** Constructor con parametros */
     public Cita(Paciente paciente, LocalDateTime fechaHora) {
         setPaciente(paciente);
         setFechaHora(fechaHora);
+    }
+
+    /** Contructor copia */
+    public Cita(Cita cita) {
+        if (cita == null)
+            throw new NullPointerException("ERROR: No se puede copiar una cita nula.");
     }
 
     private void setPaciente(Paciente paciente) {
