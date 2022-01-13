@@ -10,6 +10,11 @@ public class Cita {
     private LocalDateTime fechaHora;
     private Paciente paciente;
 
+    public Cita(Paciente paciente, LocalDateTime fechaHora) {
+        setPaciente(paciente);
+        setFechaHora(fechaHora);
+    }
+
     private void setPaciente(Paciente paciente) {
         if (paciente == null)
             throw new NullPointerException("ERROR: El paciente de una cita no puede ser nulo.");
