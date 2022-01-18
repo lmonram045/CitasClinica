@@ -2,6 +2,7 @@ package org.iesalandalus.programacion.citasclinica;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -44,7 +45,29 @@ public class Cita {
         return fechaHora;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Cita cita = (Cita) o;
+        return Objects.equals(fechaHora, cita.fechaHora) && Objects.equals(paciente, cita.paciente);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(fechaHora, paciente);
+    }
+
+    @Override
+    public String toString() {
+        return "Cita{" +
+                "fechaHora=" + fechaHora +
+                ", paciente=" + paciente +
+                '}';
+    }
 }
+
+
 /*
     // Variable para poder mostrar la fecha y hora en el formato que queremos
     DateTimeFormatter f = DateTimeFormatter.ofPattern("dd/mm/yy hh:mm");
