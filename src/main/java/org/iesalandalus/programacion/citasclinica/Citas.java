@@ -67,4 +67,15 @@ public class Citas {
 
         return null;
     }
+
+    /** Método para desplazar una posción el array hacia la izquierda (se usará al borrar un índice). */
+    private void desplazarUnaPosicionHaciaIzquierda(int indice) {
+        for (int i = indice; !tamanoSuperado(i); i++) {
+            coleccionCitas[i] = coleccionCitas[i + 1];
+            if (tamanoSuperado(i + 1))
+                coleccionCitas[i] = null;
+        }
+
+        tamano--;
+    }
 }
