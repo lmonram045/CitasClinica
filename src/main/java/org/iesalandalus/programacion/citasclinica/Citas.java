@@ -56,4 +56,15 @@ public class Citas {
     private boolean capacidadSuperada(int tamano) {
         return (tamano >= capacidad);
     }
+
+    /** Método para buscar una cita */
+    public Cita buscar(Cita cita) {
+        if (cita == null)
+            throw new IllegalArgumentException("ERROR: No se puede buscar una cita nula.");
+
+        if (!tamanoSuperado(buscarIndice(cita)))
+            return new Cita(coleccionCitas[buscarIndice(cita)]);
+
+        return null;
+    }
 }
