@@ -1,5 +1,7 @@
 package org.iesalandalus.programacion.citasclinica;
 
+import javax.naming.OperationNotSupportedException;
+
 public class Citas {
     private int capacidad;
     private int tamano;
@@ -12,6 +14,25 @@ public class Citas {
 
     public int getCapacidad() {
         return capacidad;
+    }
+
+    /** Método para insertar una nueva cita */
+    public void insertar(Cita cita) throws OperationNotSupportedException {
+        // Comprobamos que no sea nula la cita
+        if (cita == null)
+            throw new NullPointerException("ERROR: No se puede insertar una cita nula.");
+
+        // Utilizo el método capacidadSuperada para no dejar métodos de esta clase sin usar, pero con comprobar si las
+        // variables tamaño y capacidad son iguales, es suficiente
+        if (capacidadSuperada(tamano))
+            throw new OperationNotSupportedException("ERROR: No se aceptan más citas.");
+
+        // Comprobamos que no existe esa cita
+        if (!tamanoSuperado(buscarIndice(cita)))
+            throw new OperationNotSupportedException("ERROR: Ya existe una cita para esa fecha y hora.");
+
+        coleccionCitas[tamano] = new Cita(cita);
+        tamano++;
     }
 
     /** Método para buscar un índice */
