@@ -12,11 +12,11 @@ public class Citas {
         return tamano;
     }
 
-    private boolean capacidadSuperada(int capacidad) {
-
+    private boolean tamanoSuperado(int indice) {
+        return (tamano <= indice);
     }
 
-    private boolean tamanoSuperado(int tamano) {
-
+    private boolean capacidadSuperada(int tamano) {
+        return (tamano >= capacidad);
     }
 }
