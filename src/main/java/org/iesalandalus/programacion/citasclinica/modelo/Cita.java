@@ -5,7 +5,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 
 public class Cita {
-    private static final String FORMATO_FECHA_HORA = "dd/MM/yyyy hh:mm";
+    public static final String FORMATO_FECHA_HORA = "dd/MM/yyyy hh:mm";
     private LocalDateTime fechaHora;
     private Paciente paciente;
 
