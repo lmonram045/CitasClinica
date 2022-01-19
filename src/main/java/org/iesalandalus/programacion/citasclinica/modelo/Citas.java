@@ -1,13 +1,56 @@
-package org.iesalandalus.programacion.citasclinica;
+package org.iesalandalus.programacion.citasclinica.modelo;
 
 import javax.naming.OperationNotSupportedException;
+import java.time.LocalDate;
 
 public class Citas {
     private int capacidad;
     private int tamano;
     private Cita[] coleccionCitas;
 
+    public Citas(int capacidad) {
+        if (capacidad < 1)
+            throw new IllegalArgumentException("ERROR: La capacidad debe ser mayor que cero.");
 
+        tamano = 0;
+        this.capacidad = capacidad;
+        coleccionCitas = new Cita[capacidad];
+    }
+
+    /** Método para devolver una copia de las citas
+     *
+     * @return
+     */
+    public Cita[] getCitas() {
+        Cita[] citasCopia = new Cita[capacidad];
+
+        int i = 0;
+        while (!tamanoSuperado(i)) {
+            citasCopia[i] = new Cita(coleccionCitas[i]);
+            i++;
+        }
+
+        return citasCopia;
+    }
+
+    /** VOY POR AQUI REVISAR BIEN */
+    public Cita[] getCitas(LocalDate fecha) {
+        if (fecha == null)
+            throw new NullPointerException("ERROR: No se pueden devolver las citas para un día nulo.");
+
+        // Array para guardar salida auxiliar de prestamos
+        Cita[] auxCitas = new Cita[capacidad];
+        // Variable para controlar el array auxiliar creado anteriormente
+        int i = 0;
+
+        for (Cita cita : coleccionCitas) {
+            if (cita != null && cita.getFechaHora().equals(coleccionCitas[buscarIndice(cita)].getFechaHora())) {
+                auxCitas[i] = cita;
+                i++;
+            }
+        }
+        return auxCitas;
+    }
     public int getTamano() {
         return tamano;
     }
@@ -66,6 +109,23 @@ public class Citas {
             return new Cita(coleccionCitas[buscarIndice(cita)]);
 
         return null;
+    }
+
+    /** Método para borrar una cita */
+    public void borrar(Cita cita) throws OperationNotSupportedException {
+        // Comprobamos que no sea nula
+        if (cita == null)
+            throw new IllegalArgumentException("ERROR: No se puede borrar una cita nula.");
+
+        // guardamos el índice de la cita
+        int indice = buscarIndice(cita);
+
+        // comprobamos que la cita existe
+        if (tamanoSuperado(indice))
+            throw new OperationNotSupportedException("ERROR: No existe ninguna cita para esa fecha y hora.");
+
+        // La borramos y desplazando el array hacia la izquierda.
+        desplazarUnaPosicionHaciaIzquierda(indice);
     }
 
     /** Método para desplazar una posción el array hacia la izquierda (se usará al borrar un índice). */

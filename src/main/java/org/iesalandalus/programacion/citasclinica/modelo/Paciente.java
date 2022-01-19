@@ -1,13 +1,12 @@
-package org.iesalandalus.programacion.citasclinica;
+package org.iesalandalus.programacion.citasclinica.modelo;
 
-import java.util.Locale;
 import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Paciente {
     private static final String ER_DNI = "[0-9]{7,8}[A-Z a-z]"; // Se puede mejorar
-    private static final String ER_TELEFONO = "(\\+34|0034|34)?[ -]*(6|7|8|9)[ -]*([0-9][ -]*){8}";
+    private static final String ER_TELEFONO = "(\\+34|0034|34)?[ -]*(6|8|9)[ -]*([0-9][ -]*){8}";
     private String nombre;
     private String dni;
     private String telefono;
@@ -22,7 +21,7 @@ public class Paciente {
 
     /** Constructor copia */
     public Paciente(Paciente paciente) {
-        // Primero comprobamos que no se recibe un paciente nulo
+        // Primero comprobamos que no se recibe un paciente, dni o teléfono nulo
         if (paciente == null)
             throw new NullPointerException("ERROR: No es posible copiar un paciente nulo.");
 
@@ -37,7 +36,7 @@ public class Paciente {
 
     public void setNombre(String nombre) {
         // Primero comprobamos si es nulo o vacío
-        if (nombre == null || nombre.equals(""))
+        if (nombre == null || nombre.trim().equals(""))
             throw new NullPointerException("ERROR: El nombre de un paciente no puede ser nulo o vacío.");
 
         // Formateamos el nombre y lo asignamos.
@@ -77,7 +76,7 @@ public class Paciente {
 
     private void setDni(String dni) {
         // Primero comprobamos si es nulo
-        if (dni == null)
+        if (dni == null || dni.trim().isEmpty())
             throw new NullPointerException("ERROR: El DNI de un paciente no puede ser nulo o vacío.");
 
         // Quitamos los posibles espacios en blanco del dni
@@ -129,7 +128,7 @@ public class Paciente {
 
     public void setTelefono(String telefono) {
         // Comprobamos si es nulo o vacio
-        if (telefono == null || telefono.equals(""))
+        if (telefono == null || telefono.trim().equals(""))
             throw new NullPointerException("ERROR: El teléfono de un paciente no puede ser nulo o vacío.");
 
         // Eliminiamos los posibles espacios en blanco del principio y del final
@@ -174,7 +173,7 @@ public class Paciente {
 
     @Override
     public String toString() {
-        return String.format("nombre=%s (%s), dni=%s, telefono=%s", formateaNombre(nombre), getIniciales(), dni,
+        return String.format("nombre=%s (%s), DNI=%s, teléfono=%s", formateaNombre(nombre), getIniciales(), dni,
                 telefono);
     }
 

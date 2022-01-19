@@ -1,10 +1,7 @@
-package org.iesalandalus.programacion.citasclinica;
+package org.iesalandalus.programacion.citasclinica.modelo;
 
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.Objects;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class Cita {
     private static final String FORMATO_FECHA_HORA = "dd/mm/yyyy hh:mm";
