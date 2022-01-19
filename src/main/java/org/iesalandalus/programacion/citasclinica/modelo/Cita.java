@@ -1,10 +1,11 @@
 package org.iesalandalus.programacion.citasclinica.modelo;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 
 public class Cita {
-    private static final String FORMATO_FECHA_HORA = "dd/mm/yyyy hh:mm";
+    private static final String FORMATO_FECHA_HORA = "dd/MM/yyyy hh:mm";
     private LocalDateTime fechaHora;
     private Paciente paciente;
 
@@ -18,6 +19,9 @@ public class Cita {
     public Cita(Cita cita) {
         if (cita == null)
             throw new NullPointerException("ERROR: No se puede copiar una cita nula.");
+
+        setPaciente(cita.paciente);
+        setFechaHora(cita.fechaHora);
     }
 
     private void setPaciente(Paciente paciente) {
@@ -57,16 +61,7 @@ public class Cita {
 
     @Override
     public String toString() {
-        return "Cita{" +
-                "fechaHora=" + fechaHora +
-                ", paciente=" + paciente +
-                '}';
+        return paciente + ", fechaHora=" + getFechaHora().format(DateTimeFormatter.ofPattern(FORMATO_FECHA_HORA));
     }
 }
 
-
-/*
-    // Variable para poder mostrar la fecha y hora en el formato que queremos
-    DateTimeFormatter f = DateTimeFormatter.ofPattern("dd/mm/yy hh:mm");
-
-        fechaHora = fechaHora.format(f);*/
