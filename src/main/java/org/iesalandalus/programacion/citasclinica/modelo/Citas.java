@@ -2,6 +2,7 @@ package org.iesalandalus.programacion.citasclinica.modelo;
 
 import javax.naming.OperationNotSupportedException;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 public class Citas {
     private int capacidad;
@@ -41,12 +42,16 @@ public class Citas {
         // Array para guardar salida auxiliar de prestamos
         Cita[] auxCitas = new Cita[capacidad];
         // Variable para controlar el array auxiliar creado anteriormente
-        int i = 0;
+        int j = 0;
+        LocalDateTime inicioDia = LocalDateTime.of(fecha.getYear(), fecha.getMonth(), fecha.getDayOfMonth(), 0, 0, 0);
+        LocalDateTime finDia = LocalDateTime.of(fecha.getYear(), fecha.getMonth(), fecha.getDayOfMonth(), 23, 59, 59);
 
-        for (Cita cita : coleccionCitas) {
-            if (cita != null && cita.getFechaHora().equals(coleccionCitas[buscarIndice(cita)].getFechaHora())) {
-                auxCitas[i] = cita;
-                i++;
+        for (int i = 0; !tamanoSuperado(i); i++) {
+            // Obtenemos la citas para el día correspondiente
+            if (coleccionCitas[i].getFechaHora().isAfter(inicioDia)
+                    && coleccionCitas[i].getFechaHora().isBefore(finDia)) {
+                auxCitas[j] = new Cita(coleccionCitas[i]);
+                j++;
             }
         }
         return auxCitas;
